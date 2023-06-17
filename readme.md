@@ -20,3 +20,8 @@ curl --location 'localhost:8080/copy' \
 }'
 
 {"msg":"Copied successfully"}
+
+
+curl -X GET localhost:8080/health
+
+{"Status":"running"}
