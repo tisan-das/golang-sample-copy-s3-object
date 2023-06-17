@@ -11,10 +11,12 @@ curl --location 'localhost:8080/copy' \
 
 
 
-{
+curl --location 'localhost:8080/copy' \
+--header 'Content-Type: application/json' \
+--data '{
     "sourceBucket":"sample-asd-123",
     "objectKeys":["sample.txt","examTopics.png"],
     "destBucket":"sample-asd-234"
-}
+}'
 
 {"msg":"Copied successfully"}
