@@ -8,6 +8,7 @@ type CopyRequest struct {
 	SourceBucket string   `json:"sourceBucket"`
 	Objects      []string `json:"objectKeys"`
 	DestBucket   string   `json:"destBucket"`
+	DestLocation string   `json:"destLocation"`
 }
 
 func (copyRequest *CopyRequest) Validate() error {

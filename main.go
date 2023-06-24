@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	os.Setenv("AWS_REGION", "us-east-1")
+	os.Setenv("AWS_REGION", "ap-south-1")
 
 	s3Client := client.NewS3Client()
 	s3Service := service.NewS3Service(s3Client)

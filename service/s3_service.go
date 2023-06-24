@@ -19,7 +19,8 @@ func NewS3Service(client client.S3Client) S3Service {
 
 func (svc *s3Service) CopyAllObjects(payload dto.CopyRequest) error {
 	for _, object := range payload.Objects {
-		err := svc.client.CopyObject(payload.SourceBucket, object, payload.DestBucket, "")
+		err := svc.client.CopyObject(payload.SourceBucket, object,
+			payload.DestBucket, payload.DestLocation, "")
 		if err != nil {
 			return err
 		}

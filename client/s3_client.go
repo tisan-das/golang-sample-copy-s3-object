@@ -13,7 +13,7 @@ import (
 )
 
 type S3Client interface {
-	CopyObject(sourceBucketName, objectKyey, destBucketName, targetKeyArn string) error
+	CopyObject(sourceBucketName, objectKyey, destBucketName, destLocation, targetKeyArn string) error
 }
 
 type s3Client struct {
@@ -26,11 +26,17 @@ func NewS3Client() S3Client {
 	return &s3Client{bucketClient: s3.NewFromConfig(config)}
 }
 
-func (client *s3Client) CopyObject(sourceBucketName, objectKyey, destBucketName, targetKeyArn string) error {
+func (client *s3Client) CopyObject(sourceBucketName, objectKyey, destBucketName, destLocation,
+	targetKeyArn string) error {
+	fmt.Printf("%s|%s|%s|%s\n", sourceBucketName, objectKyey, destBucketName, destLocation)
+	destObjKey := objectKyey
+	if destLocation != "" {
+		destObjKey = fmt.Sprintf("%s/%s", destLocation, objectKyey)
+	}
 	_, err := client.bucketClient.CopyObject(context.TODO(), &s3.CopyObjectInput{
 		Bucket:     aws.String(destBucketName),
 		CopySource: aws.String(fmt.Sprintf("%s/%s", sourceBucketName, objectKyey)),
-		Key:        aws.String(objectKyey),
+		Key:        aws.String(destObjKey),
 	})
 	return err
 }
